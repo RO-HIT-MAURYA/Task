@@ -12,15 +12,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        getMovies()
+
+        getMovies(1)
     }
 
-    private fun getMovies() {
+    private fun getMovies(page: Int) {
         val apiInterface: ApiInterface = RetrofitHelper.createService(ApiInterface::class.java)
 
-        val call = apiInterface.getMovies()
+        val call = apiInterface.getMovies(page)
         call.enqueue(object : Callback<ResponseFormat> {
-            override fun onResponse(call: Call<ResponseFormat>, response: Response<ResponseFormat>) {
+            override fun onResponse(
+                call: Call<ResponseFormat>,
+                response: Response<ResponseFormat>
+            ) {
                 if (response.isSuccessful) {
                     //ArrayList<JsonObject> arrayList = response.body().getList();
                     val jsonArray = response.body()!!.getJsonArray()
