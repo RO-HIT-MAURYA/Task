@@ -9,4 +9,8 @@
     <color name="colorYellow">#FFEB3B</color>
     <color name="colorBlack">#000000</color>
 
+    <color name="colorTransparent">#00000000</color>
+
+    <color name="colorSemiTrans">#30000000</color>
+
 </resources>

@@ -7,14 +7,14 @@ class ResponseFormat {
     @SerializedName("results")
     private var jsonArray: JsonArray = JsonArray()
 
-    @SerializedName("total_pages")
-    private var pages: Int = 0
+    /*@SerializedName("total_pages")
+    private var pages: Int = 0*/
 
     fun getJsonArray(): JsonArray {
         return jsonArray
     }
 
-    fun getPages(): Int {
+    /*fun getPages(): Int {
         return pages
-    }
+    }*/
 }
