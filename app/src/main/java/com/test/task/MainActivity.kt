@@ -6,13 +6,23 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
+import com.test.task.retrofit.ApiInterface
+import com.test.task.retrofit.RetrofitHelper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    private val jsonList : ArrayList<JsonObject> = ArrayList()
-    private val recyclerViewAdapter : RecyclerViewAdapter = RecyclerViewAdapter(jsonList)
+    private val jsonList: ArrayList<JsonObject> = ArrayList()
+    private val recyclerViewAdapter: RecyclerViewAdapter =
+        RecyclerViewAdapter(jsonList, object : ReloadCallBack {
+            override fun reload() {
+                page++
+                getMovies()
+            }
+        })
+    private var page = 1
+    private var loadMore = true//will be false when received array is empty
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,11 +33,17 @@ class MainActivity : AppCompatActivity() {
         findViewById<RecyclerView>(R.id.recyclerView).adapter = recyclerViewAdapter
 
 
-        getMovies(1)
+        getMovies()
     }
 
-    private fun getMovies(page: Int) {
-        val apiInterface: ApiInterface = RetrofitHelper.createService(ApiInterface::class.java)
+    private fun getMovies() {
+
+        if (!loadMore)
+            return
+
+        val apiInterface: ApiInterface = RetrofitHelper.createService(
+            ApiInterface::class.java
+        )
 
         val call = apiInterface.getMovies(page)
         call.enqueue(object : Callback<ResponseFormat> {
@@ -37,10 +53,15 @@ class MainActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     val jsonArray = response.body()!!.getJsonArray()
-                    Log.v("arrayLengthIs",jsonArray.size().toString())
+                    if (jsonArray.size() == 0)
+                        loadMore = false
+                    Log.v("arrayLengthIs", jsonArray.size().toString())
                     //ArrayList<OBJECT> yourArray = new Gson().fromJson(myjsonarray.toString(), new TypeToken<List<OBJECT>>(){}.getType());
-                    for (jsonElement : JsonElement in jsonArray)
+                    for (jsonElement: JsonElement in jsonArray) {
+                        if (jsonElement.isJsonNull)
+                            continue
                         jsonList.add(jsonElement as JsonObject)
+                    }
                     Log.v("listLengthIs", jsonList.size.toString())
                     recyclerViewAdapter.notifyDataSetChanged()
 
@@ -53,5 +74,9 @@ class MainActivity : AppCompatActivity() {
                 Log.e("errorIs", t.message)
             }
         })
+    }
+
+    public interface ReloadCallBack {
+        fun reload()
     }
 }

@@ -1,4 +1,4 @@
-package com.test.task
+package com.test.task.retrofit
 
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
