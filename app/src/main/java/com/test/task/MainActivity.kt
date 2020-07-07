@@ -11,6 +11,7 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.test.task.databinding.ActivityMainBinding
 import com.test.task.retrofit.ApiInterface
+import com.test.task.retrofit.Internet
 import com.test.task.retrofit.RetrofitHelper
 import retrofit2.Call
 import retrofit2.Callback
@@ -35,6 +36,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.recyclerView.adapter = recyclerViewAdapter
         binding.shimmerFrameLayout.startShimmerAnimation()
+
+        if (!Internet(this).isAvailable()) {
+            Snackbar.make(binding.progressBar, R.string.no_internet, Snackbar.LENGTH_INDEFINITE).show()
+            return
+        }
 
         getMovies()
     }
