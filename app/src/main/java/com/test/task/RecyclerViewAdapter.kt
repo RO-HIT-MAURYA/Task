@@ -34,7 +34,7 @@ class RecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         val jsonObject = jsonList[position]
-        Log.e("jsonObjectIs",jsonObject.toString())
+        //Log.e("jsonObjectIs",jsonObject.toString())
 
         try {
             Picasso.get()
@@ -58,19 +58,6 @@ class RecyclerViewAdapter(
             reloadCallBack.reload()
     }
 
-    private fun changeDateFormat(string: String): CharSequence {
-        var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
-        val date = simpleDateFormat.parse(string)
-
-        simpleDateFormat = SimpleDateFormat("MMM dd, yyyy")
-        val str = simpleDateFormat.format(date)
-        return str
-    }
-
-    private fun getPercent(asFloat: Float): Int {
-        return (asFloat * 10).toInt()
-    }
-
     class RecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView = itemView.imageView
         val titleTextView = itemView.titleTextView
@@ -78,5 +65,21 @@ class RecyclerViewAdapter(
         val progressBar = itemView.progressBar
         val ratingTextView = itemView.ratingTextView
         val dateTextView = itemView.dateTextView
+    }
+
+    companion object
+    {
+        fun changeDateFormat(string: String): CharSequence {
+            var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+            val date = simpleDateFormat.parse(string)
+
+            simpleDateFormat = SimpleDateFormat("MMM dd, yyyy")
+            val str = simpleDateFormat.format(date)
+            return str
+        }
+
+        fun getPercent(asFloat: Float): Int {
+            return (asFloat * 10).toInt()
+        }
     }
 }

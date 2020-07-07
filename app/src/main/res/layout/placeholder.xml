@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="18dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginEnd="14dp"
+        android:background="#EFEFEF" />
+
+    <View
+        android:id="@+id/drNameView"
+        android:layout_width="wrap_content"
+        android:layout_height="17dp"
+        android:layout_marginBottom="6dp"
+        android:layout_toEndOf="@id/imageView"
+        android:background="#C5C5C5" />
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="12dp"
+        android:layout_below="@id/drNameView"
+        android:layout_toEndOf="@id/imageView"
+        android:background="#C5C5C5"
+        android:paddingStart="11dp"
+        android:paddingEnd="11dp" />
+
+    <View
+        android:id="@+id/doctorTypeView"
+        android:layout_width="100dp"
+        android:layout_height="13dp"
+        android:layout_below="@id/drNameView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginBottom="6dp"
+        android:background="#C5C5C5" />
+
+    <View
+        android:id="@+id/locationView"
+        android:layout_width="100dp"
+        android:layout_height="13dp"
+        android:layout_below="@id/doctorTypeView"
+        android:layout_toEndOf="@id/imageView"
+        android:background="#C5C5C5" />
+
+    <View
+        android:id="@+id/availabilityView"
+        android:layout_width="100dp"
+        android:layout_height="13dp"
+        android:layout_below="@id/doctorTypeView"
+        android:layout_alignParentEnd="true"
+        android:background="#C5C5C5" />
+
+    <View
+        android:id="@+id/hospitalNameTextView"
+        android:layout_width="100dp"
+        android:layout_height="13dp"
+        android:layout_below="@id/locationView"
+        android:layout_marginTop="6dp"
+        android:layout_toEndOf="@id/imageView"
+        android:background="#C5C5C5" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/imageView"
+        android:layout_marginTop="15dp"
+        android:background="#C5C5C5" />
+
+</RelativeLayout>

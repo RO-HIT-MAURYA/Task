@@ -22,7 +22,7 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="125dp"
-            android:layout_height="150dp"
+            android:layout_height="160dp"
             android:adjustViewBounds="true"
             android:background="@drawable/ic_baseline_image_24"
             android:scaleType="fitXY" />
