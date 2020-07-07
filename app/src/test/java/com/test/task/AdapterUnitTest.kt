@@ -24,7 +24,7 @@ class AdapterUnitTest {
     @Test
     fun testChangeDateFormat() {
         val input = "1995-01-05"
-        var expected = "Jan 05, 1995"
+        val expected = "Jan 05, 1995"
 
         val output = RecyclerViewAdapter.changeDateFormat(input)
 
