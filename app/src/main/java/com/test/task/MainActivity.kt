@@ -18,7 +18,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    private val jsonList: ArrayList<JsonObject> = ArrayList()
+    private val jsonList: ArrayList<ResponseFormat.Movie> = ArrayList()
     private val recyclerViewAdapter: RecyclerViewAdapter =
         RecyclerViewAdapter(jsonList, object : ReloadCallBack {
             override fun reload() {
@@ -38,7 +38,8 @@ class MainActivity : AppCompatActivity() {
         binding.shimmerFrameLayout.startShimmerAnimation()
 
         if (!Internet(this).isAvailable()) {
-            Snackbar.make(binding.progressBar, R.string.no_internet, Snackbar.LENGTH_INDEFINITE).show()
+            Snackbar.make(binding.progressBar, R.string.no_internet, Snackbar.LENGTH_INDEFINITE)
+                .show()
             return
         }
 
@@ -63,19 +64,25 @@ class MainActivity : AppCompatActivity() {
                 response: Response<ResponseFormat>
             ) {
                 if (response.isSuccessful) {
-                    val jsonArray = response.body()!!.getJsonArray()
+                    /*val jsonArray = response.body()!!.getJsonArray()
                     if (jsonArray.size() == 0)
                         loadMore = false
-                    //ArrayList<OBJECT> yourArray = new Gson().fromJson(myjsonarray.toString(), new TypeToken<List<OBJECT>>(){}.getType());
                     for (jsonElement: JsonElement in jsonArray) {
                         if (jsonElement.isJsonNull)
                             continue
                         jsonList.add(jsonElement as JsonObject)
-                    }
+                    }*/
+
+                    if (response.body()!!.getJsonArray().isEmpty())
+                        loadMore = false
+
+                    jsonList.addAll(response.body()!!.getJsonArray())
+
                     recyclerViewAdapter.notifyDataSetChanged()
 
                     handleLoaders()
                     //Log.e("responseIs", response.body().toString() + "")
+                    Log.e("onResponse", "isCalled")
                 }
             }
 

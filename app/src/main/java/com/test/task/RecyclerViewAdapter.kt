@@ -19,15 +19,12 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class RecyclerViewAdapter(
-    private val jsonList: ArrayList<JsonObject>,
+    private val jsonList: ArrayList<ResponseFormat.Movie>,
     private val reloadCallBack: MainActivity.ReloadCallBack
 ) :
     RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder>() {
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): RecyclerViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
         return RecyclerViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
         )
@@ -43,16 +40,16 @@ class RecyclerViewAdapter(
 
         try {
             Picasso.get()
-                .load(CommonParameters.imageUrl + jsonObject.get(CommonParameters.poster_path).asString)
+                .load(CommonParameters.imageUrl + jsonObject.poster_path)
                 .placeholder(R.drawable.ic_baseline_image_24).into(holder.imageView)
         } catch (e: UnsupportedOperationException) {
             e.printStackTrace()
         }
 
-        holder.titleTextView.text = jsonObject.get(CommonParameters.original_title).asString
-        holder.bodyTextView.text = jsonObject.get(CommonParameters.overview).asString
+        holder.titleTextView.text = jsonObject.title
+        holder.bodyTextView.text = jsonObject.overview
 
-        val percent = getPercent(jsonObject.get(CommonParameters.vote_average).asFloat)
+        val percent = getPercent(jsonObject.vote_average)
         holder.ratingTextView.text = "$percent%"
 
         if (percent < 60)
@@ -67,10 +64,10 @@ class RecyclerViewAdapter(
 
         holder.progressBar.secondaryProgress = percent
 
-        holder.bodyTextView.text = jsonObject.get(CommonParameters.overview).asString
+        holder.bodyTextView.text = jsonObject.overview
 
         holder.dateTextView.text =
-            changeDateFormat(jsonObject.get(CommonParameters.release_date).asString)
+            changeDateFormat(jsonObject.release_date)
 
         if (position == jsonList.size - 1)
             reloadCallBack.reload()

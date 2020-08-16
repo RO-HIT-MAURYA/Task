@@ -5,16 +5,28 @@ import com.google.gson.annotations.SerializedName
 
 class ResponseFormat {
     @SerializedName("results")
-    private var jsonArray: JsonArray = JsonArray()
+    private var arrayList : ArrayList<Movie> = ArrayList();
+    //private var jsonArray: JsonArray = JsonArray()
 
-    /*@SerializedName("total_pages")
-    private var pages: Int = 0*/
 
-    fun getJsonArray(): JsonArray {
-        return jsonArray
+    fun getJsonArray(): ArrayList<Movie> {
+        return arrayList
     }
 
-    /*fun getPages(): Int {
-        return pages
-    }*/
+    class Movie {
+        @SerializedName("poster_path")
+        var poster_path = ""
+
+        @SerializedName("title")
+        var title = ""
+
+        @SerializedName("vote_average")
+        var vote_average = 0f
+
+        @SerializedName("overview")
+        var overview = ""
+
+        @SerializedName("release_date")
+        var release_date = ""
+    }
 }
